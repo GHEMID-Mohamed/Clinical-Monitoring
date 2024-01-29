@@ -1,7 +1,7 @@
-using System.Formats.Asn1;
-using System.Globalization;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 
 namespace api.Controllers;
 
@@ -9,11 +9,8 @@ namespace api.Controllers;
 public class WeatherForecastController : ControllerBase
 {
     [HttpGet("api/clinics")]
-    public IEnumerable<Clinic> Get()
+    public async Task<IEnumerable<Clinic>> Get([FromServices] AppDbContext context)
     {
-        return new List<Clinic>() {
-            new() { Id = "452", Name = "New Care", Address ="Borgergade 11, 7330 Brande, Danemark"  },
-            new() { Id = "999", Name = "Med Care", Address ="Drosselvej 6, 7330 Brande, Danemark"  }
-        };
+        return await context.Clinics.ToListAsync();
     }
 }

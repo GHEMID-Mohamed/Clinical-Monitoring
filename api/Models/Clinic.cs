@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace api.Models;
 
+[Table("clinic")]
 public class Clinic
 {
-    public string? Id { get; set; }
-    public string? Name { get; set; }
-    public string? Address { get; set; }
+    public int? id { get; set; }
+    public string? name { get; set; }
 }
