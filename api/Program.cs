@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -37,6 +40,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+string dbConnetion = builder.Configuration["ConnectionStrings:DefaultConnection"]!;
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(dbConnetion)
+);
 
 var app = builder.Build();
 
